@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bkmiwwp7sr8cs"]
+[gd_scene load_steps=18 format=3 uid="uid://bkmiwwp7sr8cs"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_8gbbo"]
 [ext_resource type="PackedScene" uid="uid://cuwktrwov48ye" path="res://scenes/player.tscn" id="1_tftv4"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://grj4m7ruf8kp" path="res://scenes/slime.tscn" id="7_y87yu"]
 [ext_resource type="FontFile" uid="uid://deelvgl70oxiv" path="res://fonts/PixelOperator8-Bold.ttf" id="8_s1ik2"]
 [ext_resource type="FontFile" uid="uid://bca5ptb3n8ojb" path="res://fonts/PixelOperator8.ttf" id="10_wxbhb"]
+[ext_resource type="PackedScene" uid="uid://dmpihf1jeok3" path="res://scenes/fruit.tscn" id="11_ehe20"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wg4uq"]
 texture = ExtResource("3_efg77")
@@ -313,6 +314,12 @@ offset_bottom = -70.0
 theme_override_fonts/font = ExtResource("8_s1ik2")
 theme_override_font_sizes/font_size = 16
 text = "Hello, world!"
+
+[node name="Fruit" parent="." instance=ExtResource("11_ehe20")]
+position = Vector2(254, -45)
+
+[node name="Fruit2" parent="." instance=ExtResource("11_ehe20")]
+position = Vector2(360, -13)
 
 [connection signal="timeout" from="GameManager/ResetGameTimer" to="Player" method="_on_reset_game_timer_timeout"]
 [connection signal="ready" from="Player" to="Player" method="_on_ready"]

@@ -5,6 +5,7 @@ const JUMP_VELOCITY = -300.0
 var health = 3
 var died = false
 var is_being_hit = false
+var is_healing = false
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -36,6 +37,20 @@ func playerHit():
 		await(hit_anim_fin)
 		is_being_hit = false
 
+func playerHeal():
+	if is_healing:
+		return
+	is_healing = true
+	if health == 3:
+		return
+	else:
+		health += 1
+	health_bar.set_frame(int(health))
+	animated_sprite.play("heal")
+	var heal_anim_fin = animated_sprite.animation_finished
+	await(heal_anim_fin)
+	is_healing = false
+
 func playerVoid():
 	health == 0
 	playerDied()
@@ -61,7 +76,7 @@ func _physics_process(delta: float) -> void:
 		var direction := Input.get_axis("move_left", "move_right")
 	
 		# update sprite animation based on action
-		if !is_being_hit:
+		if !is_being_hit or !is_healing:
 			if is_on_floor():
 				if direction == 0:
 					animated_sprite.play("idle")
