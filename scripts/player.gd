@@ -19,6 +19,7 @@ func playerDied():
 	died = true
 	Engine.time_scale = 0.5
 	animated_sprite.play("death")
+	animation_player.play("audio_hit")
 	animation_player.play("anim_SFX_death")
 	self.get_node("CollisionShape2D").queue_free()
 	var death_label = self.get_node("Camera2D/DeathLabel")
@@ -32,13 +33,13 @@ func playerHit():
 		return
 	is_being_hit = true
 	health -= 1
+	health_bar.set_frame(int(health))
 	if health <= 0:
 		playerDied()
 	else:
 		animation_player.play("audio_hit")
 		animated_sprite.play("hit")
 		var hit_anim_fin = animated_sprite.animation_finished
-		health_bar.set_frame(int(health))
 		await(hit_anim_fin)
 		is_being_hit = false
 
@@ -51,16 +52,14 @@ func playerHeal():
 		return
 	else:
 		health += 1
-		
-	# Update health bar animated sprite
-	health_bar.set_frame(int(health))
-	
-	# Run heal animation, wait until animation is finished, then continue
-	# This allows for heal animation to run, rather than being overruled by idle/jump/run animations
-	animated_sprite.play("heal")
-	var heal_anim_fin = animated_sprite.animation_finished
-	await(heal_anim_fin)
-	is_healing = false
+		# Update health bar animated sprite
+		health_bar.set_frame(int(health))
+		# Run heal animation, wait until animation is finished, then continue
+		# This allows for heal animation to run, rather than being overruled by idle/jump/run animations
+		animated_sprite.play("heal")
+		var heal_anim_fin = animated_sprite.animation_finished
+		await(heal_anim_fin)
+		is_healing = false
 
 # This function handles player movement and animation.
 func _physics_process(delta: float) -> void:

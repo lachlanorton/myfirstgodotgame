@@ -98,5 +98,6 @@ libraries = {
 
 [node name="SFX_Fruit" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_kcdtf")
+bus = &"SFX"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

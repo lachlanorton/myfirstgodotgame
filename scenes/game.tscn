@@ -12,7 +12,7 @@
 [ext_resource type="FontFile" uid="uid://bca5ptb3n8ojb" path="res://fonts/PixelOperator8.ttf" id="10_wxbhb"]
 [ext_resource type="PackedScene" uid="uid://dmpihf1jeok3" path="res://scenes/fruit.tscn" id="11_ehe20"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wg4uq"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_shdlk"]
 texture = ExtResource("3_efg77")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -175,7 +175,7 @@ texture = ExtResource("3_efg77")
 
 [sub_resource type="TileSet" id="TileSet_nupws"]
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_wg4uq")
+sources/0 = SubResource("TileSetAtlasSource_shdlk")
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_4ug5s"]
 
