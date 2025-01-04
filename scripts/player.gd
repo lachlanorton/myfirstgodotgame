@@ -47,7 +47,6 @@ func playerHit():
 func playerHeal():
 	if is_healing:
 		return
-	is_healing = true
 	if health == 3:
 		return
 	else:
