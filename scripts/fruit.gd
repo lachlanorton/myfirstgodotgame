@@ -3,5 +3,6 @@ extends Area2D
 
 
 func _on_body_entered(body: Node2D) -> void:
-	body.playerHeal()
-	animation_player.play("anim_fruit")
+	if self.name.contains("Heal"):
+		body.playerHeal()
+		animation_player.play("anim_fruit")

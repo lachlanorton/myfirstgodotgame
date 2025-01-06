@@ -1,11 +1,14 @@
-[gd_scene load_steps=52 format=3 uid="uid://cuwktrwov48ye"]
+[gd_scene load_steps=57 format=3 uid="uid://cuwktrwov48ye"]
 
 [ext_resource type="Texture2D" uid="uid://ckvqknphywgqg" path="res://sprites/knight.png" id="1_v4oxv"]
 [ext_resource type="Texture2D" uid="uid://i7wlmmx03jk6" path="res://sprites/knight_heal.png" id="2_6x50l"]
 [ext_resource type="AudioStream" uid="uid://35a5kh5kvjpt" path="res://sounds/jump.wav" id="2_supbd"]
 [ext_resource type="AudioStream" uid="uid://ducm4nm77ya2" path="res://sounds/hurt.wav" id="3_ynj5y"]
 [ext_resource type="AudioStream" uid="uid://bm00r0bytlgbc" path="res://sounds/death.wav" id="4_hxsdj"]
+[ext_resource type="Script" path="res://scripts/sword.gd" id="4_yturm"]
+[ext_resource type="AudioStream" uid="uid://h0ka3c43ndye" path="res://sounds/sword_swoosh.wav" id="5_6i0a0"]
 [ext_resource type="Texture2D" uid="uid://brwt0eorf5or5" path="res://sprites/health test.png" id="5_eohex"]
+[ext_resource type="Texture2D" uid="uid://dof11ok6nn73g" path="res://sprites/sword.png" id="7_sl1k2"]
 
 [sub_resource type="GDScript" id="GDScript_0etmu"]
 script/source = "extends CharacterBody2D
@@ -327,6 +330,9 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1r8fs"]
+size = Vector2(20, 16.7059)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_yvwrw"]
 radius = 6.0
 
@@ -356,6 +362,54 @@ tracks/1/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D/Sword:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.74846e-07]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AnimatedSprite2D/Sword/SwordArea/SwordHitbox:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AnimatedSprite2D/Sword/SFX_sword_swoosh:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_8chky"]
 resource_name = "anim_SFX_hit"
@@ -371,10 +425,22 @@ tracks/0/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_psnl3"]
 resource_name = "anim_jump"
-length = 0.1
+length = 0.5
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -388,6 +454,18 @@ tracks/0/keys = {
 "args": [0.0],
 "method": &"play"
 }]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
 }
 
 [sub_resource type="Animation" id="Animation_jl7aj"]
@@ -405,13 +483,66 @@ tracks/0/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_renkt"]
+resource_name = "sword_swing"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D/Sword:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-1.74846e-07, 1.22173, -1.74846e-07]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D/Sword/SwordArea/SwordHitbox:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D/Sword/SFX_sword_swoosh:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ppjrj"]
 _data = {
 "RESET": SubResource("Animation_kxkw3"),
 "anim_SFX_death": SubResource("Animation_8chky"),
 "anim_jump": SubResource("Animation_psnl3"),
-"audio_hit": SubResource("Animation_jl7aj")
+"audio_hit": SubResource("Animation_jl7aj"),
+"sword_swing": SubResource("Animation_renkt")
 }
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qts3r"]
@@ -458,8 +589,25 @@ script = SubResource("GDScript_0etmu")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_l4ont")
-animation = &"hit"
+animation = &"jump"
 autoplay = "idle"
+
+[node name="Sword" type="Sprite2D" parent="AnimatedSprite2D"]
+position = Vector2(9, 5)
+scale = Vector2(0.447368, 0.447368)
+texture = ExtResource("7_sl1k2")
+script = ExtResource("4_yturm")
+
+[node name="SwordArea" type="Area2D" parent="AnimatedSprite2D/Sword"]
+
+[node name="SwordHitbox" type="CollisionShape2D" parent="AnimatedSprite2D/Sword/SwordArea"]
+position = Vector2(0, -1.64706)
+shape = SubResource("RectangleShape2D_1r8fs")
+disabled = true
+
+[node name="SFX_sword_swoosh" type="AudioStreamPlayer" parent="AnimatedSprite2D/Sword"]
+stream = ExtResource("5_6i0a0")
+bus = &"SFX"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -6)
@@ -488,3 +636,5 @@ rotation = 1.5708
 scale = Vector2(0.46875, 0.46875)
 sprite_frames = SubResource("SpriteFrames_pmesm")
 animation = &"Health"
+
+[connection signal="area_entered" from="AnimatedSprite2D/Sword/SwordArea" to="AnimatedSprite2D/Sword" method="_on_sword_area_area_entered"]

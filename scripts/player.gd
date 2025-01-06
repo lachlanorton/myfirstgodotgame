@@ -6,6 +6,7 @@ var health = 3
 var died = false
 var is_being_hit = false
 var is_healing = false
+var is_attacking = false
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -74,6 +75,12 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("jump") and is_on_floor():
 			velocity.y = JUMP_VELOCITY
 			animation_player.play("anim_jump")
+		
+		if Input.is_action_just_pressed("hit"):
+			if is_attacking:
+				return
+			else:
+				animation_player.play("sword_swing")
 
 		# Get the input direction and handle the movement/deceleration.
 		# move right means direction = 1
@@ -88,14 +95,16 @@ func _physics_process(delta: float) -> void:
 					animated_sprite.play("idle")
 				else:
 					animated_sprite.play("run")
-			else:
-				animated_sprite.play("jump")
+		#	else:
+		#		animated_sprite.play("jump")
 		
 		# Flip sprite based on direction player is moving
 		if direction > 0:
-			animated_sprite.flip_h = false
+			# animated_sprite.flip_h = false
+			animated_sprite.scale = Vector2(1,1)
 		if direction < 0:
-			animated_sprite.flip_h = true
+			# animated_sprite.flip_h = true
+			animated_sprite.scale = Vector2(-1,1)
 	
 		# If a direction is being input, move player in that direction	
 		if direction:

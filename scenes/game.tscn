@@ -225,9 +225,9 @@ script = ExtResource("1_8gbbo")
 
 [node name="ScoreLabel" type="Label" parent="GameManager"]
 offset_left = -139.0
-offset_top = -71.0
+offset_top = -84.0
 offset_right = 29.0
-offset_bottom = -48.0
+offset_bottom = -61.0
 theme_override_fonts/font = ExtResource("10_wxbhb")
 theme_override_font_sizes/font_size = 8
 text = "You have collected x coins!"
@@ -307,6 +307,7 @@ position = Vector2(225, -74)
 position = Vector2(73, 0)
 
 [node name="IntroLabel" type="Label" parent="."]
+visible = false
 offset_left = -147.0
 offset_top = -93.0
 offset_right = 35.0
@@ -315,10 +316,10 @@ theme_override_fonts/font = ExtResource("8_s1ik2")
 theme_override_font_sizes/font_size = 16
 text = "Hello, world!"
 
-[node name="Fruit" parent="." instance=ExtResource("11_ehe20")]
+[node name="HealFruit" parent="." instance=ExtResource("11_ehe20")]
 position = Vector2(254, -45)
 
-[node name="Fruit2" parent="." instance=ExtResource("11_ehe20")]
+[node name="HealFruit2" parent="." instance=ExtResource("11_ehe20")]
 position = Vector2(360, -13)
 
 [connection signal="timeout" from="GameManager/ResetGameTimer" to="Player" method="_on_reset_game_timer_timeout"]
